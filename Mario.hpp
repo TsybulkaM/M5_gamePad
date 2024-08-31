@@ -1,81 +1,104 @@
-/*#define SCREEN_WIDTH 240
-#define SCREEN_HEIGHT 135
+class Mario : public ArcadeGame {
+public:
 
-#define PLAYER_WIDTH 20
-#define PLAYER_HEIGHT 20
-#define PLAYER_COLOR TFT_RED
-#define GROUND_HEIGHT 20
+  Mario() : 
+    PLAYER_WIDTH(20),
+    PLAYER_HEIGHT(20),
+    PLAYER_COLOR(TFT_RED),
+    GROUND_HEIGHT(20),
+    GRAVITY(1),
+    JUMP_FORCE(14),
+    MOVE_SPEED(5)
+  {
 
-#define GRAVITY 1
-#define JUMP_FORCE 14
-#define MOVE_SPEED 5
-
-static struct Player {
-  int x;
-  int y;
-  int velocityY;
-  int velocityX;
-} player;
-
-void drawPlayer() {
-  M5.Lcd.fillRect(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_COLOR);
-}
-
-void updatePlayer() {
-  player.velocityY += GRAVITY;
-
-  player.y += player.velocityY;
-  player.x += player.velocityX;
-
-  if (player.y > SCREEN_HEIGHT - GROUND_HEIGHT - PLAYER_HEIGHT) {
-    player.y = SCREEN_HEIGHT - GROUND_HEIGHT - PLAYER_HEIGHT;
-    player.velocityY = 0;
   }
 
-  if (player.x < 0) {
-    player.x = 0;
-  }
-  if (player.x > SCREEN_WIDTH - PLAYER_WIDTH) {
-    player.x = SCREEN_WIDTH - PLAYER_WIDTH;
-  }
-}
-
-
-void jump() {
-  if (player.y == SCREEN_HEIGHT - GROUND_HEIGHT - PLAYER_HEIGHT) {
-    player.velocityY = -JUMP_FORCE;
-  }
-}
-
-void MarioSetup() {
-  M5.begin();
-  M5.Lcd.fillScreen(TFT_BLACK);
-}
-
-void MarioLoop() {
-  M5.Lcd.setRotation(1);
-  while (1) {
-    static Player player = { 50, SCREEN_HEIGHT - GROUND_HEIGHT - PLAYER_HEIGHT, 0, 0 };
-
-    M5.update();
-
-    // Handle player input
-    if (M5.BtnA.isPressed()) {
-      jump();
+  void execute() {
+    while (this->Setup()) {
+        this->Reset();
+        this->MainLoop();
+        this->End();
     }
+  }
 
-    if (M5.BtnB.isPressed()) {
-      player.velocityX = MOVE_SPEED;
-    }
+private:
+  static struct Player {
+    int x;
+    int y;
+    int velocityY;
+    int velocityX;
+  } player;
 
-    // Update game logic
+  uint8_t PLAYER_WIDTH, PLAYER_HEIGHT, GROUND_HEIGHT;
+  uint16_t PLAYER_COLOR;
+  uint8_t GRAVITY, JUMP_FORCE, MOVE_SPEED;
+
+  bool Setup() {
     M5.Lcd.fillScreen(TFT_BLACK);
-    updatePlayer();
-
-    // Draw game elements
-    drawPlayer();
-
-    // Delay to control the frame rate
-    delay(16);
+    M5.Lcd.setRotation(1);
+    M5.Lcd.printf("Hi, Ken!");
+    return this->choice();
   }
-}*/
+
+  void Reset() {
+    player = { 50, SCREEN_HEIGHT - GROUND_HEIGHT - PLAYER_HEIGHT, 0, 0 };
+  }
+
+  bool MainLoop() {
+    while (1) {
+      M5.update();
+
+      // Handle player input
+      if (M5.BtnA.isPressed()) {
+        jump();
+      }
+
+      if (M5.BtnB.isPressed()) {
+        player.velocityX = MOVE_SPEED;
+      }
+
+      // Update game logic
+      M5.Lcd.fillScreen(TFT_BLACK);
+      updatePlayer();
+
+      // Draw game elements
+      drawPlayer();
+
+      // Delay to control the frame rate
+      delay(16);
+    }
+  }
+
+  bool End() {
+
+  }
+
+  void drawPlayer() {
+    M5.Lcd.fillRect(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_COLOR);
+  }
+
+  void updatePlayer() {
+    player.velocityY += GRAVITY;
+
+    player.y += player.velocityY;
+    player.x += player.velocityX;
+
+    if (player.y > SCREEN_HEIGHT - GROUND_HEIGHT - PLAYER_HEIGHT) {
+      player.y = SCREEN_HEIGHT - GROUND_HEIGHT - PLAYER_HEIGHT;
+      player.velocityY = 0;
+    }
+
+    if (player.x < 0) {
+      player.x = 0;
+    }
+    if (player.x > SCREEN_WIDTH - PLAYER_WIDTH) {
+      player.x = SCREEN_WIDTH - PLAYER_WIDTH;
+    }
+  }
+
+  void jump() {
+    if (player.y == SCREEN_HEIGHT - GROUND_HEIGHT - PLAYER_HEIGHT) {
+      player.velocityY = -JUMP_FORCE;
+    }
+  }
+};

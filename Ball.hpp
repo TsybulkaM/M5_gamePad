@@ -44,16 +44,7 @@ public:
 
       gols = 0;
 
-      while (true) {
-          M5.update();
-          if (M5.BtnA.wasPressed()) {
-              M5.Lcd.fillScreen(BLACK);
-              this->Reset();
-              return true;
-          } else if (M5.BtnB.wasPressed()) {
-              return false;
-          }
-      }
+      return this->choice();
     }
 
     void Reset() override {
@@ -82,7 +73,7 @@ public:
             speedY = -speedY;
         }
 
-        M5.Lcd.fillCircle(ballX, ballY, ballSize, RED);
+        M5.Lcd.fillCircle(ballX, ballY, ballSize, TFT_RED);
 
         if (M5.BtnA.wasPressed()) {
             if (ballX >= (M5.Lcd.width() / 2) - ballSize && ballX <= (M5.Lcd.width() / 2) + ballSize && ballY >= (M5.Lcd.height() / 2) - ballSize && ballY <= (M5.Lcd.height() / 2) + ballSize) {

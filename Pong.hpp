@@ -66,7 +66,9 @@ public:
       PADDLE_HEIGHT(20),
       BALL_SIZE(4),
       PADDLE_SPEED(3),
-      BALL_SPEED(2) {
+      BALL_SPEED(2) 
+  {
+
   }
 
 
@@ -91,15 +93,7 @@ public:
     M5.Lcd.print("Play with a master of pong");
     M5.Lcd.setTextSize(2);
 
-    while (true) {
-      M5.update();
-      if (M5.BtnA.wasPressed()) {
-        M5.Lcd.fillScreen(BLACK);
-        return true;
-      } else if (M5.BtnB.wasPressed()) {
-        return false;
-      }
-    }
+    return this->choice();
   }
 
 
@@ -203,15 +197,7 @@ public:
       M5.Lcd.print("You lose!");
     }
 
-    while (true) {
-      M5.update();
-      if (M5.BtnA.wasPressed()) {
-        M5.Lcd.fillScreen(BLACK);
-        return true;
-      } else if (M5.BtnB.wasPressed()) {
-        return false;
-      }
-    }
+    return this->choice();
   }
 };
 

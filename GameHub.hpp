@@ -4,7 +4,7 @@
 #include "Taxi.hpp"
 #include "Ball.hpp"
 #include "Pong.hpp"
-#include "VoiceBall.hpp"
+//#include "Mario.hpp"
 
 struct GameElement {
     const char* name;
@@ -23,8 +23,8 @@ struct GameElement {
 GameElement* GameHub[] = { 
   new GameElement("Ball", new Ball()), 
   new GameElement("Taxi", new Taxi()), 
-  new GameElement("Pong", new Pong()),
-  new GameElement("VoiceBall", new VoiceBall()),
+  new GameElement("Pong", new Pong())
+  //new GameElement("Mario", new Mario()),
 };
 const int GameHub_size = sizeof(GameHub) / sizeof(GameHub[0]);
 
