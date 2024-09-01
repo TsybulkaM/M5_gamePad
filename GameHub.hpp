@@ -21,10 +21,10 @@ struct GameElement {
 };
 
 GameElement* GameHub[] = { 
+  new GameElement("Pong", new Pong()),
   new GameElement("Ball", new Ball()), 
   new GameElement("Taxi", new Taxi()), 
-  new GameElement("Pong", new Pong())
-  //new GameElement("Mario", new Mario()),
+  //new GameElement("Mario", new Mario())
 };
 const int GameHub_size = sizeof(GameHub) / sizeof(GameHub[0]);
 

@@ -125,16 +125,7 @@ public:
     M5.Lcd.setCursor(10, M5.Lcd.height() / 2 - 30);
     M5.Lcd.print("Place the device horizontal");
 
-    while (true) {
-      M5.update();
-      if (M5.BtnA.wasPressed()) {
-        M5.Lcd.fillScreen(BLACK);
-        resultTaxi = millis();
-        return true;
-      } else if (M5.BtnB.wasPressed()) {
-        return false;
-      }
-    }
+    return choice();
   }
 
   void Reset() override {
@@ -159,6 +150,7 @@ public:
       drawLines();
 
       M5.IMU.getGyroData(&accX, &accY, &accZ);
+      Serial.println(accX);
       smoothedAccX = SMOOTHING_FACTOR * accX + (1.0 - SMOOTHING_FACTOR) * smoothedAccX;
 
       M5.Lcd.fillRect(taxi.x, taxi.y, CARS_WIDTH, CARS_HEIGHT, BLACK);

@@ -30,11 +30,12 @@ public:
     if (menuOption == -1) {
       M5.Lcd.setRotation(4);
       menuOption = 0;
-      menu_battery->display(10, 10, 2, COLOR_TEXT_MAIN, COLOR_CIRCLE);
       displayTital(5, 40, 3);
+      menu_battery->display(10, 10, 2, COLOR_TEXT_MAIN, COLOR_CIRCLE);
       updateMenuDisplay();
+    } else {
+      menu_battery->updateAndDisplay(10, 10, 2, COLOR_TEXT_MAIN, COLOR_CIRCLE);
     }
-    menu_battery->updateAndDisplay(10, 10, 2, COLOR_TEXT_MAIN, COLOR_CIRCLE);
     waitForMenuSelection();
   }
 
@@ -90,12 +91,12 @@ private:
     Serial.println("It goes to updateMenuDisplay");
     M5.Lcd.setTextSize(2);
     for (int i = 0; i < GameHub_size; ++i) {
-      M5.Lcd.setCursor(10, 90 + i * 30);
+      M5.Lcd.setCursor(10, 100 + i * 30);
 
       if (i == menuOption) {
-        M5.Lcd.setTextColor(COLOR_LABEL_BG1, COLOR_BACKGROUND);
-      } else {
         M5.Lcd.setTextColor(COLOR_TEXT_SUB, COLOR_BACKGROUND);
+      } else {
+        M5.Lcd.setTextColor(COLOR_TEXT_MAIN, COLOR_BACKGROUND);
       }
 
       M5.Lcd.printf(GameHub[i]->name);

@@ -23,9 +23,9 @@ public:
 
     void execute() {
       while(this->Setup()) {
-        while(this->MainLoop()) {
-          this->Reset();
-        }
+        do {
+        this->Reset();
+        } while(this->MainLoop());
       }
     }
 

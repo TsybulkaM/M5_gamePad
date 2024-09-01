@@ -33,7 +33,7 @@ public:
       M5.Lcd.setCursor(x, y);
       M5.Lcd.setTextSize(front_size);
       M5.Lcd.setTextColor(text_color, bg_color);
-      M5.Lcd.fillRect(x, y, 50*front_size,  10*front_size, bg_color);
+      M5.Lcd.fillRect(x, y, 60*front_size,  10*front_size, bg_color);
       M5.Lcd.printf("%d%%", batteryPercentage);
   }
 };
