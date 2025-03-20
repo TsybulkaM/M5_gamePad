@@ -4,6 +4,7 @@
 #include "Taxi.hpp"
 #include "Ball.hpp"
 #include "Pong.hpp"
+#include "RTCapp.hpp"
 //#include "Mario.hpp"
 
 struct GameElement {
@@ -22,8 +23,9 @@ struct GameElement {
 
 GameElement* GameHub[] = { 
   new GameElement("Pong", new Pong()),
-  new GameElement("Ball", new Ball()), 
-  new GameElement("Taxi", new Taxi()), 
+  new GameElement("Ball", new Ball()),
+  new GameElement("Taxi", new Taxi()),
+  new GameElement("RTC", new RTCapp()),
   //new GameElement("Mario", new Mario())
 };
 const int GameHub_size = sizeof(GameHub) / sizeof(GameHub[0]);

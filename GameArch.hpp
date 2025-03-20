@@ -5,6 +5,16 @@
 #include <M5StickCPlus.h>
 #include <GyverTimer.h>
 
+#include "Services.hpp"
+
+// RTCapp
+#include <NTPClient.h>
+#include <WiFiUdp.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+#include "esp_sleep.h"
+
+
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 135
 

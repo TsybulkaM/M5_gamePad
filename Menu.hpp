@@ -23,7 +23,7 @@ public:
    circle2Y(252),
    circle2Radius(39)
   {
-    menu_battery =  new Battery();
+    menu_battery = new Battery();
   }
 
   void main() {

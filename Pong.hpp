@@ -43,17 +43,14 @@ private:
 
 
   void updateScreen() {
-    // Стирание старых позиций
     M5.Lcd.fillRect(0, prevLeftPaddleY, PADDLE_WIDTH, PADDLE_HEIGHT, BLACK);
     M5.Lcd.fillRect(SCREEN_WIDTH - PADDLE_WIDTH, prevRightPaddleY, PADDLE_WIDTH, PADDLE_HEIGHT, BLACK);
     M5.Lcd.fillRect(prevBallX, prevBallY, BALL_SIZE, BALL_SIZE, BLACK);
 
-    // Рисование новых позиций
     drawPaddles();
     drawBall();
     drawScores();
 
-    // Обновление предыдущих значений
     prevLeftPaddleY = leftPaddleY;
     prevRightPaddleY = rightPaddleY;
     prevBallX = pongBallX;
@@ -123,7 +120,6 @@ public:
     while (true) {
       M5.update();
 
-      // Управление левым паддлом
       if (M5.BtnA.isPressed()) {
         leftPaddleY -= PADDLE_SPEED;
         if (leftPaddleY < 0) leftPaddleY = 0;
@@ -132,14 +128,12 @@ public:
         if (leftPaddleY > SCREEN_HEIGHT - PADDLE_HEIGHT) leftPaddleY = SCREEN_HEIGHT - PADDLE_HEIGHT;
       }
 
-      // Прерывание игры по длительному нажатию кнопки B
       if (M5.BtnB.wasReleasefor(4000)) {
         leftScore = 0;
         return false;
       }
 
-      // Автоматическое управление правым паддлом с случайными промахами
-      if (random(10) > 3) {  // 30% шанс промаха
+      if (random(10) > 3) {
         if (pongBallY < rightPaddleY + PADDLE_HEIGHT / 2) {
           rightPaddleY -= PADDLE_SPEED;
           if (rightPaddleY < 0) rightPaddleY = 0;
@@ -149,23 +143,19 @@ public:
         }
       }
 
-      // Обновление позиции мяча
       pongBallX += ballVelocityX;
       pongBallY += ballVelocityY;
 
-      // Столкновение с верхней и нижней границами
       if (pongBallY <= 0 || pongBallY >= SCREEN_HEIGHT - BALL_SIZE) {
         ballVelocityY = -ballVelocityY;
       }
 
-      // Столкновение с паддлами
       if (pongBallX <= PADDLE_WIDTH && pongBallY >= leftPaddleY && pongBallY <= leftPaddleY + PADDLE_HEIGHT) {
         ballVelocityX = -ballVelocityX;
       } else if (pongBallX >= SCREEN_WIDTH - PADDLE_WIDTH - BALL_SIZE && pongBallY >= rightPaddleY && pongBallY <= rightPaddleY + PADDLE_HEIGHT) {
         ballVelocityX = -ballVelocityX;
       }
 
-      // Проверка на гол
       if (pongBallX <= 0) {
         rightScore++;
         resetBall();
@@ -174,7 +164,6 @@ public:
         resetBall();
       }
 
-      // Перерисовка экрана
       updateScreen();
 
       delay(30);
